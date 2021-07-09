@@ -1,0 +1,4 @@
+client id: 77841290642-57eh99vt56pjann5aholefh24c4m1512.apps.googleusercontent.com
+secret: ihytG_kQDf6ckbDClACE0SU3
+
+authorization code: 4/0AX4XfWh6RCG7BtM91eJaIEjk-coRH3hN3x0yQuj9ioQLNAIudXJhoexPOe224BYIixWtmw

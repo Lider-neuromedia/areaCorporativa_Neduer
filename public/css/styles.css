@@ -104,6 +104,12 @@ input[type="submit"] {
     background-color: var(--color-green);
 }
 
+@media screen and (max-width: 600px) {
+    .login-submit {
+        padding: 0.5rem 3rem;
+    }
+}
+
 .login-card .form-field {
     align-items: stretch;
     display: flex;
@@ -137,13 +143,61 @@ input[type="submit"] {
 
 /* -------------------------------- Dashboard Aside -------------------------------- */
 
-.board-page .board-aside {
+.board-aside {
     background-color: #FDFEFE;
     border-top-right-radius: 3rem;
     box-shadow: 0 0 1rem var(--color-shadow);
     flex: 0 0 20%;
     padding: 1rem 0;
     text-align: center;
+}
+
+.aside-button {
+    background-color: var(--color-white);
+    border: 0;
+    border-radius: 50%;
+    display: none;
+    left: 1rem;
+    padding: 0;
+    position: fixed;
+    transition: 0.1s all linear;
+    top: 1rem;
+    z-index: 40000;
+}
+
+.aside-button.close {
+    top: calc(100% - 40px - 1rem);
+}
+
+.aside-button img {
+    display: block;
+    height: 40px;
+    width: 40px;
+}
+
+.aside-button:hover,
+.aside-button:active {
+    background-color: var(--color-green);
+
+}
+
+@media screen and (max-width: 600px) {
+    .aside-button {
+        display: block;
+    }
+
+    .board-aside {
+        left: -100%;
+        bottom: 0;
+        position: fixed;
+        transition: 0.3s all linear;
+        top: 0;
+        z-index: 30000;
+    }
+
+    .board-aside.show {
+        left: 0;
+    }
 }
 
 .board-aside-logo {
@@ -198,6 +252,11 @@ input[type="submit"] {
     padding: 1rem 2.5rem;
 }
 
+@media screen and (max-width: 600px) {
+    .board-main {
+        padding: 1rem;
+    }
+}
 
 .board-header {
     align-items: center;
@@ -205,6 +264,17 @@ input[type="submit"] {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+}
+
+@media screen and (max-width: 800px) {
+    .board-header {
+        flex-flow: column nowrap;
+        align-items: flex-end;
+    }
+
+    .board-date br {
+        display: none;
+    }
 }
 
 .board-profile {
@@ -345,6 +415,27 @@ input[type="submit"] {
         position: inherit;
         transform: scale(1) translate(0, 0);
         width: 30%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .board-welcome {
+        margin: 1rem 0;
+    }
+
+    .board-welcome h1 {
+        font-size: 1rem;
+        line-height: inherit;
+        max-width: 100%;
+    }
+
+    .board-welcome h1 small {
+        font-size: 0.9em;
+    }
+
+    .board-welcome img {
+        display: none;
     }
 }
 

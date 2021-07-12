@@ -4,7 +4,11 @@
 
 @section('content')
 
-<aside class="board-aside">
+<button class="aside-button" id="aside-button">
+    <img src="{{ asset('assets/menu.png') }}" alt="Menú">
+</button>
+
+<aside class="board-aside" id="board-aside">
     <img class="board-aside-logo" src="{{ asset('assets/logo_color copySVG.svg') }}" alt="Grupo Neduer">
     <ul class="board-nav">
         <li>
@@ -17,7 +21,7 @@
 </aside>
 <main class="board-main">
     <header class="board-header">
-        <div>
+        <div class="board-date">
             <strong>Acceso Corporativo</strong><br>
             {{ $format_date }}
         </div>

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use League\Csv\Reader;
+use League\Csv\Writer;
 
 class User extends Authenticatable
 {
@@ -51,7 +52,7 @@ class User extends Authenticatable
 
         foreach ($csv as $record) {
             $document = $record['Empleado'];
-            $email = "$document@mail.com";
+            $email = "$document@gmail.com";
             $admission = Carbon::createFromFormat('Y-m-d', $record['Fecha ingreso']);
 
             if (User::where('email', $email)->exists()) {
@@ -71,5 +72,43 @@ class User extends Authenticatable
                 'password' => \Hash::make($document),
             ]);
         }
+    }
+
+    // App\User::export();
+    public static function export()
+    {
+        $users = \DB::table('users')
+            ->select(
+                'document as user_nicename',
+                'document as user_login',
+                'document as user_pass',
+                'email as user_email',
+                'name as display_name',
+            )
+        // ->limit(3)
+            ->get();
+
+        $writer = Writer::createFromPath(storage_path("app/wp_users.csv"), 'w+');
+        $writer->setNewline("\r\n");
+
+        $writer->insertOne([
+            'user_nicename',
+            'user_login',
+            'user_pass',
+            'user_email',
+            'display_name',
+        ]);
+
+        foreach ($users as $user) {
+            $writer->insertOne([
+                'user_nicename' => $user->user_nicename,
+                'user_login' => $user->user_login,
+                'user_pass' => $user->user_pass,
+                'user_email' => $user->user_email,
+                'display_name' => $user->display_name,
+            ]);
+        }
+
+        return true;
     }
 }

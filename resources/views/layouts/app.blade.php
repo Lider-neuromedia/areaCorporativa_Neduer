@@ -25,20 +25,6 @@
 
     @yield('content')
 
-    {{-- @if (Session::has('user'))
-
-    <span>{{ App\User::find(Session::get('user'))->name }}</span>
-
-    <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        Cerrar Sesión
-    </a>
-
-    <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-
-    @endif --}}
-
     <script src="{{asset('js/scripts.js')}}"></script>
 
 </body>

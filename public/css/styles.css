@@ -268,12 +268,19 @@ input[type="submit"] {
 
 @media screen and (max-width: 800px) {
     .board-header {
-        flex-flow: column nowrap;
         align-items: flex-end;
+        flex-flow: column nowrap;
+        gap: 1rem;
     }
 
     .board-date br {
         display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .board-header {
+        padding-left: calc(1rem + 40px);
     }
 }
 

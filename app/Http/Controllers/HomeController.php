@@ -40,6 +40,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user_id = $request->session()->get('user', null);
+        $days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'];
+        $months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
         if ($user_id == null) {
             return redirect('/login');
@@ -59,8 +61,10 @@ class HomeController extends Controller
             return 0;
         });
 
-        $files = collect($files)->map(function ($file) {
-            $file['date'] = Carbon::createFromTimestamp($file['timestamp'])->format('d/m/Y h:iA');
+        $files = collect($files)->map(function ($file) use ($months) {
+            $date = Carbon::createFromTimestamp($file['timestamp']);
+            $file['date'] = $date->format('d/m/Y h:iA');
+            $file['month'] = $months[$date->month - 1];
             return $file;
         });
 
@@ -69,9 +73,6 @@ class HomeController extends Controller
         }
 
         $current_date = Carbon::now();
-
-        $days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'];
-        $months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
         $day = $current_date->day;
         $month = $months[$current_date->month - 1];

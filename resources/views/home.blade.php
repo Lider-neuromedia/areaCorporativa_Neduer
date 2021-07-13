@@ -59,10 +59,10 @@
     <article class="board-documents">
         <h2 class="board-documents-title">Seguridad social</h2>
         <ul class="board-documents-list">
-            <li>
+            {{-- <li>
                 <img src="{{ asset('assets/doc.svg') }}" alt="">
-                <span class="document-name">Mayo</span>
-                <a href="#">Descargar</a>
+            <span class="document-name">Mayo</span>
+            <a href="#">Descargar</a>
             </li>
             <li>
                 <img src="{{ asset('assets/doc.svg') }}" alt="">
@@ -73,12 +73,13 @@
                 <img src="{{ asset('assets/doc.svg') }}" alt="">
                 <span class="document-name">Julio</span>
                 <a href="#">Descargar</a>
-            </li>
+            </li> --}}
 
             @foreach ($files as $file)
             <li>
                 <img src="{{ asset('assets/doc.svg') }}" alt="">
-                <span class="document-name">{{ $file['name'] }}</span>
+                {{-- <span class="document-name">{{ $file['name'] }}</span> --}}
+                <span class="document-name">{{ $file['month'] }}</span>
                 <a href="{{ url("files/{$file['path']}") }}" download>
                     Descargar
                 </a>

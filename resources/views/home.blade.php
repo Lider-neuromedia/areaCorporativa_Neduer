@@ -31,12 +31,6 @@
             <span class=" board-profile-arrow toggle-profile-menu">&#94;</span>
             <ul class="board-profile-menu" id="profile-menu">
                 <li>
-                    <a href="{{ url('/') }}">
-                        <img src="{{ asset('assets/usuario.svg') }}" alt="Usuario">
-                        Ver mi perfil
-                    </a>
-                </li>
-                <li>
                     <a href="{{ url('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <img src="{{ asset('assets/logout.svg') }}" alt="Logout">

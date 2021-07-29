@@ -50,36 +50,24 @@
         </h1>
         <img src="{{ asset('assets/Asset 1 CopySVG.svg') }}" alt="">
     </article>
-    <article class="board-documents">
+    <article id="files-list-app">
         <h2 class="board-documents-title">Seguridad social</h2>
-        <ul class="board-documents-list">
-            {{-- <li>
-                <img src="{{ asset('assets/doc.svg') }}" alt="">
-            <span class="document-name">Mayo</span>
-            <a href="#">Descargar</a>
-            </li>
-            <li>
-                <img src="{{ asset('assets/doc.svg') }}" alt="">
-                <span class="document-name">Junio</span>
-                <a href="#">Descargar</a>
-            </li>
-            <li>
-                <img src="{{ asset('assets/doc.svg') }}" alt="">
-                <span class="document-name">Julio</span>
-                <a href="#">Descargar</a>
-            </li> --}}
 
-            @foreach ($files as $file)
-            <li>
-                <img src="{{ asset('assets/doc.svg') }}" alt="">
-                {{-- <span class="document-name">{{ $file['name'] }}</span> --}}
-                <span class="document-name">{{ $file['month'] }}</span>
-                <a href="{{ url("files/{$file['path']}") }}" download>
-                    Descargar
-                </a>
-            </li>
-            @endforeach
+        <div v-if="isLoading" class="board-documents-loading">
+            <img src="{{ asset('assets/loading2.gif') }}" alt="Cargando...">
+            <span>Cargando Documentos ...</span>
+        </div>
 
+        <div v-if="!isLoading && files.length == 0" class="board-documents-loading">
+            <span>No hay documentos para mostrar</span>
+        </div>
+
+        <ul v-if="!isLoading && files.length > 0" class="board-documents-list">
+            <li v-for="(file, index) in files" :key="index">
+                <img src="{{ asset('assets/doc.svg') }}" alt="Documento Logo">
+                <span class="document-name">@{{ file.month }}</span>
+                <a :href="file.download_url" download>Descargar</a>
+            </li>
         </ul>
     </article>
 </main>

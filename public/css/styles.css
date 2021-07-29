@@ -455,6 +455,20 @@ input[type="submit"] {
     margin-bottom: 2rem;
 }
 
+.board-documents-loading {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+}
+
+.board-documents-loading img {
+    border-radius: 50%;
+    height: auto;
+    margin-bottom: 1rem;
+    width: 13rem;
+}
+
 .board-documents-list {
     align-items: flex-start;
     display: flex;

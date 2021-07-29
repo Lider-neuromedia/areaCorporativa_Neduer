@@ -12,9 +12,12 @@
  */
 
 Route::get('/', 'HomeController@index');
+
 Route::get('/login', 'HomeController@loginForm')->name('custom.loginForm');
 Route::post('/login', 'HomeController@login')->name('custom.login');
 Route::post('/logout', 'HomeController@logout')->name('custom.logout');
-Route::get('/files/{path?}', 'HomeController@file')->where('path', '(.*)');
+
+Route::get('/files-list', 'HomeController@files')->name('files.list');
+Route::get('/files/{path?}', 'HomeController@file')->where('path', '(.*)')->name('files.download');
 
 // Auth::routes(['register' => false]);

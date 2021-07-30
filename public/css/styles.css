@@ -531,3 +531,64 @@ input[type="submit"] {
     flex: 1 1 auto;
     padding: 0 1rem;
 }
+
+
+/* -------------------------------- Dashboard Refresh -------------------------------- */
+
+
+.files-page-content {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 400px;
+    min-height: 100vh;
+}
+
+.files-page-logo {
+    display: block;
+    height: auto;
+    margin: 0 0 2rem 0;
+    width: 10rem;
+}
+
+.files-page-loading {
+    margin: 2rem 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.files-page-loading img {
+    height: auto;
+    width: 8rem;
+}
+
+.files-page-loading span {
+    text-align: center;
+}
+
+.files-page-message {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.files-page-action {
+    background-color: var(--color-green2);
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem var(--color-shadow);
+    color: var(--color-white);
+    margin: 2rem 0 0 0;
+    padding: 1rem;
+}
+
+.files-page-action:hover,
+.files-page-action:active {
+    background-color: var(--color-green);
+}
+
+.files-page-action:disabled {
+    background-color: var(--color-gray2);
+}

@@ -63,7 +63,7 @@ class HomeController extends Controller
         }
 
         $user = User::findOrFail($user_id);
-        $files = $this->loadFilesFromDrive($user->document);
+        $files = (new FilesController)->loadFilesFromLocal($user->document);
 
         $files = $files->map(function ($file) use ($user) {
             $date = Carbon::createFromTimestamp($file['timestamp']);
@@ -89,55 +89,55 @@ class HomeController extends Controller
         return "$weekday, $day de $month de 2021";
     }
 
-    private function loadFilesFromDrive(String $user_document)
-    {
-        $base_folder = \Storage::disk('google')->listContents(env('GOOGLE_DRIVE_BASE_FOLDER'));
-        $time_list = $this->getLastMonths();
-        $files = [];
+    // private function loadFilesFromDrive(String $user_document)
+    // {
+    //     $base_folder = \Storage::disk('google')->listContents(env('GOOGLE_DRIVE_BASE_FOLDER'));
+    //     $time_list = $this->getLastMonths();
+    //     $files = [];
 
-        foreach ($base_folder as $folder) {
-            foreach ($time_list as $year => $months) {
+    //     foreach ($base_folder as $folder) {
+    //         foreach ($time_list as $year => $months) {
 
-                if ($folder['name'] == $year) {
-                    $months_folder = \Storage::disk('google')->listContents($folder['path']);
+    //             if ($folder['name'] == $year) {
+    //                 $months_folder = \Storage::disk('google')->listContents($folder['path']);
 
-                    foreach ($months_folder as $mfolder) {
-                        $month_folder_name = strtoupper($mfolder['name']);
-                        $use_month = false;
+    //                 foreach ($months_folder as $mfolder) {
+    //                     $month_folder_name = strtoupper($mfolder['name']);
+    //                     $use_month = false;
 
-                        foreach ($months as $month) {
-                            if (strpos($month_folder_name, $month) !== false) {
-                                $use_month = true;
-                            }
-                        }
+    //                     foreach ($months as $month) {
+    //                         if (strpos($month_folder_name, $month) !== false) {
+    //                             $use_month = true;
+    //                         }
+    //                     }
 
-                        if ($use_month) {
-                            $month_folder = \Storage::disk('google')->listContents($mfolder['path']);
+    //                     if ($use_month) {
+    //                         $month_folder = \Storage::disk('google')->listContents($mfolder['path']);
 
-                            foreach ($month_folder as $document) {
-                                $cloud_name = strtolower($document['name']);
-                                $document_name = "{$user_document}.pdf";
-                                $is_valid_document = strpos($cloud_name, $document_name) == 2;
+    //                         foreach ($month_folder as $document) {
+    //                             $cloud_name = strtolower($document['name']);
+    //                             $document_name = "{$user_document}.pdf";
+    //                             $is_valid_document = strpos($cloud_name, $document_name) == 2;
 
-                                if ($is_valid_document) {
-                                    $files[] = $document;
-                                }
-                            }
-                        }
-                    }
+    //                             if ($is_valid_document) {
+    //                                 $files[] = $document;
+    //                             }
+    //                         }
+    //                     }
+    //                 }
 
-                }
+    //             }
 
-            }
-        }
+    //         }
+    //     }
 
-        return collect($files);
-    }
+    //     return collect($files);
+    // }
 
     /**
      * Obtener los nombre/indices de los últimos 3 meses.
      */
-    private function getLastMonths($is_index = false)
+    public function getLastMonths($is_index = false)
     {
         $current_date = Carbon::now();
         $month_index = $current_date->month - 1;
@@ -187,29 +187,29 @@ class HomeController extends Controller
         return \Storage::disk('google')->download($path, $name);
     }
 
-    private function getUserFolder(User $user)
-    {
-        $folders = \Storage::disk('google')->listContents();
-        $path = null;
+    // private function getUserFolder(User $user)
+    // {
+    //     $folders = \Storage::disk('google')->listContents();
+    //     $path = null;
 
-        foreach ($folders as $folder) {
-            if ($folder['type'] != 'dir') {
-                continue;
-            }
-            if ($folder['filename'] != $user->document) {
-                continue;
-            }
-            $path = $folder['path'];
-        }
+    //     foreach ($folders as $folder) {
+    //         if ($folder['type'] != 'dir') {
+    //             continue;
+    //         }
+    //         if ($folder['filename'] != $user->document) {
+    //             continue;
+    //         }
+    //         $path = $folder['path'];
+    //     }
 
-        return $path;
-    }
+    //     return $path;
+    // }
 
-    private function getFileName(User $user, String $path)
-    {
-        $folder = $this->getUserFolder($user);
-        $files = $folder == null ? [] : \Storage::disk('google')->listContents($folder);
-        $file = collect($files)->firstWhere('path', $path);
-        return $file == null ? null : $file['name'];
-    }
+    // private function getFileName(User $user, String $path)
+    // {
+    //     $folder = $this->getUserFolder($user);
+    //     $files = $folder == null ? [] : \Storage::disk('google')->listContents($folder);
+    //     $file = collect($files)->firstWhere('path', $path);
+    //     return $file == null ? null : $file['name'];
+    // }
 }
